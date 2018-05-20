@@ -9,6 +9,8 @@ import TemplateOne from './Template/TemplateOne';
 import TemplateTwo from './Template/TemplateTwo';
 import Input from '../UI/Input/Input';
 import {submitResume} from "../../store/actions";
+import Spinner from '../UI/Spinner/Spinner';
+import Auxx from '../../hoc/Auxx/Auxx';
 
 class ResumeFinal extends Component {
 
@@ -31,7 +33,8 @@ class ResumeFinal extends Component {
 
 
     render() {
-        return (
+        console.log(this.props.loading);
+        let showContent = (
             <div>
                 {this.renderPage()}
                 <Form className="row mb-3" onSubmit={this.props.handleSubmit(values => {
@@ -44,9 +47,17 @@ class ResumeFinal extends Component {
                         </div>
                         <Button color="success" className="col-sm-3">SAVE</Button>
                     </div>
-
                 </Form>
             </div>
+        );
+
+        if(this.props.loading) {
+            showContent = <Spinner style={{margin: "auto"}}/>;
+        }
+        return (
+            <Auxx>
+                {showContent}
+            </Auxx>
         );
     }
 }
@@ -56,7 +67,7 @@ const mapStateToProps = (state) => {
     return {
         formValues: state.form.resume.values,
         template: state.resume.template,
-
+        loading: state.resume.loading
     }
 };
 

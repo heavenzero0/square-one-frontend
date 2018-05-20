@@ -1,0 +1,27 @@
+.TemplateTwo {
+
+}
+
+.TemplateTwo-Header-Grey{
+    height: 20px;
+    width: 100%;
+    background-color: #cce5ff;
+}
+
+.TemplateTwo-Line{
+    height: 2px;
+    width: 100%;
+    background-color: lightpink;
+}
+
+.TemplateTwo-Left {
+    text-align: right;
+}
+
+.TemplateOne-Header-Grey{
+    border-radius: 5px;
+    padding: 5px;
+    height: 80%;
+    width: 100%;
+    background-color: #cce5ff;
+}

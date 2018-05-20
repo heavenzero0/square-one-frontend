@@ -9,5 +9,5 @@ export default combineReducers({
     form: reduxForm,
     auth: authReducer,
     resume: resumeReducer,
-    resumeList: resumeListReducer,
+    resumeList: resumeListReducer
 });

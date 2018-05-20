@@ -1,10 +1,13 @@
 import React from 'react';
 
 import '../Resume.css';
+import './TemplateOne';
 
 const templateOne = (props) => {
+
+
     return (
-        <div className="Resume-Page">
+        <div id="divToPrint" className="Resume-Page">
             <div style={{textAlign: 'center'}}>
                 <h1 className="Resume-P-M">{props.values.firstName + ' ' + props.values.lastName}</h1>
                 <p className="Resume-P-M">{props.values.address}</p>
@@ -12,21 +15,17 @@ const templateOne = (props) => {
                 <p className="Resume-P-M">{props.values.phone}</p>
                 <p className="Resume-P-M">{props.values.email}</p>
             </div>
-            <div>
-                <h2>Summary</h2>
-                <hr/>
-                <p className="Resume-P-M">{props.values.summary}</p>
+            <div className="mt-3">
+                <div className="TemplateOne-Header-Grey"><h2>Summary</h2></div>
+                <p className="Resume-P-M ml-3">{props.values.summary}</p>
             </div>
-            <div>
-                <h2>Skills</h2>
-                <hr/>
-                <p className="Resume-P-M">{props.values.skill + ': ' + props.values.level}</p>
-
+            <div className="mt-3">
+                <div className="TemplateOne-Header-Grey"><h2>Skills</h2></div>
+                <p className="Resume-P-M ml-3">{props.values.skill + ': ' + props.values.level}</p>
             </div>
-            <div>
-                <h2>Employment History</h2>
-                <hr/>
-                <div className="row justify-content-between">
+            <div className="mt-3">
+                <div className="TemplateOne-Header-Grey"><h2>Employment History</h2></div>
+                <div className="row justify-content-between ml-1">
                     <div className="col-sm-4">
                         <p className="Resume-P-M">{props.values.companyName}</p>
                         <p className="Resume-P-M">{props.values.jobTitle}</p>
@@ -37,10 +36,9 @@ const templateOne = (props) => {
                     </div>
                 </div>
             </div>
-            <div>
-                <h2>Education</h2>
-                <hr/>
-                <div className="row justify-content-between">
+            <div className="mt-3">
+                <div className="TemplateOne-Header-Grey"><h2>Education</h2></div>
+                <div className="row justify-content-between ml-1">
                     <div className="col-sm-4">
                         <p className="Resume-P-M">{props.values.degree + ' Diploma'}</p>
                         <p className="Resume-P-M">{props.values.school + ' - ' + props.values.educationLocation}</p>

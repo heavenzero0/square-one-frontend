@@ -12,6 +12,8 @@ import Logout from './container/Login/Logout/Logout';
 import Resume from './container/Resume/Resume';
 import LoadResume from './container/Resume/LoadResume';
 import ShowResume from './container/Resume/ShowResume';
+import Error from './container/Error';
+import requireAuth from './hoc/AuthenticationHoc';
 
 class App extends Component {
 
@@ -24,19 +26,22 @@ class App extends Component {
         return (
             <Layout>
                 <Switch>
-                    <Route path="/dashboard" component={Dashboard}/>
-                    <Route path="/login" component={Login}/>
-                    <Route path="/register" component={Register}/>
-                    <Route path="/logout" component={Logout}/>
-                    <Route path="/resume" component={Resume}/>
+                    <Route exact path="/dashboard" component={requireAuth(Dashboard)}/>
+                    <Route exact path="/login" component={Login}/>
+                    <Route exact path="/register" component={Register}/>
+                    <Route exact path="/logout" component={Logout}/>
+                    <Route exact path="/resume" component={requireAuth(Resume)}/>
                     <Route exact path="/users/resumes" component={LoadResume}/>
-                    <Route path="/users/resumes/view" component={ShowResume}/>
+                    <Route exact path="/users/resumes/view" component={requireAuth(ShowResume)}/>
                     <Route exact path="/" component={Landing}/>
+                    <Route exact path="/*" component={Error} />
                 </Switch>
             </Layout>
         );
     }
 }
+
+
 
 const mapDispatchToProps = dispatch => {
     return {

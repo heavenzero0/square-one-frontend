@@ -11,6 +11,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import './Login.css';
 
 
+
 const Fields = [
     {label: 'Email', name: 'email', type: 'text'},
     {label: 'Password', name: 'password', type: 'password'}

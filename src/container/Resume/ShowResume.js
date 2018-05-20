@@ -10,7 +10,7 @@ class ShowResume extends Component {
         switch (this.props.resume.template) {
             case 1:
                 return (
-                    <TemplateOne values={this.props.resume}/>
+                    <TemplateOne values={this.props.resume} />
                 );
             case 2:
                 return (
@@ -23,10 +23,6 @@ class ShowResume extends Component {
 
 
     render() {
-
-
-        console.log(this.props.resume);
-
         return (
             <div>
                 {this.renderPage()}

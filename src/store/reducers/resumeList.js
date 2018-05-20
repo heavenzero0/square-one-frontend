@@ -1,8 +1,26 @@
-import {RESUME_LOAD} from "../actions/actionTypes";
+import {RESUME_LOAD, LOADING} from "../actions/actionTypes";
+import {updateObject} from "../utility";
 
-export default function (state = null, action) {
+
+const initialState = {
+    loading: null,
+    resumeList: []
+};
+
+const loadingStart = (state, action) => {
+    return updateObject(state, {loading: true});
+};
+
+const loadingFinish = (state, action) => {
+    return updateObject(state, {loading: null, resumeList: action.payload});
+};
+
+export default function (state = initialState, action) {
     switch (action.type) {
-        case RESUME_LOAD: return action.payload;
+        case LOADING:
+            return loadingStart(state, action);
+        case RESUME_LOAD:
+            return loadingFinish(state, action);
         default:
             return state;
     }

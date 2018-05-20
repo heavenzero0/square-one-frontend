@@ -24,7 +24,8 @@ const initialState = {
     degree: null,
     school: null,
     educationLocation: null,
-    gradYear: null
+    gradYear: null,
+    loading: null
 };
 
 const resumeTemplate = (state, action) => {
@@ -34,7 +35,6 @@ const resumeTemplate = (state, action) => {
 };
 
 const resumeData = (state, values) => {
-    console.log(values);
     return updateObject(state, {
         name: values.name,
         template: +values.template,
@@ -62,11 +62,26 @@ const resumeData = (state, values) => {
     });
 };
 
+const loadingStart = (state, action) => {
+    return updateObject(state, {loading: true});
+};
+
+
+
+
+const loadResume = (state, action) => {
+  updateObject(state, {loading: null});
+  return action.payload;
+};
+
+
 const reducer = (state = initialState, action) => {
     switch(action.type) {
+        case actionTypes.LOADING: return loadingStart(state, action);
         case actionTypes.RESUME_TEMPLATE: return resumeTemplate(state, action);
-        case actionTypes.RESUME_LOAD: return action.payload;
+        case actionTypes.RESUME_LOAD: return loadResume(state, action);
         case actionTypes.RESUME_DATA: return resumeData(state, action.payload);
+        case actionTypes.UNLOADING: return state = initialState;
         default:
             return state;
     }
