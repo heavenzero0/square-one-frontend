@@ -32,7 +32,12 @@ class Login extends Component {
 
     render() {
 
-        let form = this.renderInputs();
+        let form = (
+            <div>
+                {this.renderInputs()}
+                <Button color="dark">LOGIN</Button>
+            </div>
+        );
 
 
         if (this.props.loading) {
@@ -42,7 +47,7 @@ class Login extends Component {
         let errorMessage = null;
 
         if (this.props.error) {
-            errorMessage = (<Alert color="danger">Invalid credentials</Alert>);
+            errorMessage = (<Alert color="danger">{this.props.error.data.error.message}</Alert>);
         }
 
         let authRedirect = null;
@@ -58,7 +63,7 @@ class Login extends Component {
                 {authRedirect}
                 {form}
                 {errorMessage}
-                <Button color="dark">LOGIN</Button>
+
             </Form>
         );
     }

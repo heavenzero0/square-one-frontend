@@ -25,6 +25,9 @@ class Header extends Component {
                 return (
                     <Nav className="ml-auto" navbar>
                         <NavItem>
+                            <NavLink tag={Link} to="/dashboard">Home</NavLink>
+                        </NavItem>
+                        <NavItem>
                             <NavLink tag={Link} to="/logout">Logout</NavLink>
                         </NavItem>
                     </Nav>

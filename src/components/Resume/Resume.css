@@ -1,7 +1,36 @@
 .Resume-Button {
     margin: 20px 50px;
 }
+.Resume-Button-Left {
+    margin-right: 10px;
+}
 
 .Resume-Form {
-    margin: 20px 50px
+    margin: 20px 50px;
+}
+
+.Resume-Header {
+    background-color: #ccc;
+}
+
+.Resume-test {
+    display: inline-block;
+}
+
+.Resume-Detail-Center {
+    margin: auto;
+}
+
+.Resume-P-M {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.Resume-Page {
+    width: 595px;
+    height: 842px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    padding: 10px;
+    margin: 20px auto;
 }

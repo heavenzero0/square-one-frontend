@@ -7,18 +7,20 @@ export const authStart = () => {
     }
 };
 
-export const authSuccess = (token, email) => {
+export const authSuccess = (token, email, id) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         token: token,
-        email: email
+        email: email,
+        id: id,
     }
 };
 
-export const authFail = (error) => {
+export const authFail = (error, registerErr) => {
     return {
         type: actionTypes.AUTH_FAIL,
-        error: error
+        error: error,
+        errorRegister: registerErr
     }
 };
 
@@ -26,6 +28,7 @@ export const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('expirateDate');
     localStorage.removeItem('email');
+    localStorage.removeItem('id');
     return {
         type: actionTypes.AUTH_LOGOUT
     };
@@ -43,37 +46,53 @@ export const auth = (email, password) => {
         dispatch(authStart());
         const authData = {
             email: email,
-            password: password
+            password: password,
+            returnSecureToken: true
         };
 
-        axios.post('http://squareone.test/api/login', authData)
+        axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBjL7Feawb88gcvqRpFkeThSxMkyHLePQ4', authData)
             .then(res => {
-                const expirationDate = new Date(new Date().getTime() + res.data.data.token.expires_in * 1000);
-                localStorage.setItem('token', res.data.data.token.access_token);
-                localStorage.setItem('email', res.data.data.email);
+
+                const expirationDate = new Date(new Date().getTime() + res.data.expiresIn * 1000);
+                localStorage.setItem('token', res.data.idToken);
+                localStorage.setItem('email', res.data.email);
                 localStorage.setItem('expirateDate', expirationDate);
-                dispatch(authSuccess( res.data.data.token.access_token, res.data.data.email));
-                dispatch(checkAuthTimeout(res.data.data.token.expires_in));
+                localStorage.setItem('id', res.data.localId);
+                dispatch(authSuccess( res.data.idToken, res.data.email, res.data.localId));
+                dispatch(checkAuthTimeout(res.data.expiresIn));
             })
             .catch(err => {
-                dispatch(authFail(err.response));
+                dispatch(authFail(err.response,null));
             });
     }
 };
 
 
 export const register = (values) => {
+
+
+
     return dispatch => {
         dispatch(authStart());
+        const authData = {
+            email: values.email,
+            password: values.password,
+            returnSecureToken: true,
+        };
 
-        console.log(values);
-
-        axios.post('http://squareone.test/api/register', values)
+        axios.post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBjL7Feawb88gcvqRpFkeThSxMkyHLePQ4', authData)
             .then(res => {
-                dispatch(authSuccess(res.data));
+                const expirationDate = new Date(new Date().getTime() + res.data.expiresIn * 1000);
+                localStorage.setItem('token', res.data.idToken);
+                localStorage.setItem('email', res.data.email);
+                localStorage.setItem('expirateDate', expirationDate);
+                localStorage.setItem('id', res.data.localId);
+                dispatch(authSuccess( res.data.idToken, res.data.email, res.data.localId));
+                dispatch(checkAuthTimeout(res.data.expiresIn));
             })
             .catch(err => {
-                dispatch(authFail(err));
+                console.log(err.response);
+                dispatch(authFail(null,err.response));
             });
     }
 };
@@ -89,7 +108,8 @@ export const authCheckState = () => {
                 dispatch(logout());
             } else {
                 const email = localStorage.getItem('email');
-                dispatch(authSuccess(token, email));
+                const id = localStorage.getItem('id');
+                dispatch(authSuccess(token, email, id));
                 dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 ));
             }
         }

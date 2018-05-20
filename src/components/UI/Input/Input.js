@@ -1,11 +1,9 @@
 import React from 'react';
 
-import {Label, FormGroup, Input, Alert, Col} from 'reactstrap';
+import {Label, FormGroup, Input, Alert} from 'reactstrap';
 
 const input = ({input, label, type, meta: {touched, error}, grid}) => {
-    console.log(grid);
     return (
-
         <FormGroup>
             <Label>{label}</Label>
             <Input {...input} placeholder={label} type={type}/>
@@ -13,6 +11,7 @@ const input = ({input, label, type, meta: {touched, error}, grid}) => {
                 {touched && error && <Alert color="danger">{error}</Alert>}
             </div>
         </FormGroup>
+
 
     );
 };

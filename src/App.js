@@ -10,10 +10,12 @@ import Register from './container/Register/Register';
 import Login from './container/Login/Login';
 import Logout from './container/Login/Logout/Logout';
 import Resume from './container/Resume/Resume';
+import LoadResume from './container/Resume/LoadResume';
+import ShowResume from './container/Resume/ShowResume';
 
 class App extends Component {
 
-    componentDidMount() {
+    componentWillMount() {
         this.props.onTryAutoSignIn();
     }
 
@@ -27,6 +29,8 @@ class App extends Component {
                     <Route path="/register" component={Register}/>
                     <Route path="/logout" component={Logout}/>
                     <Route path="/resume" component={Resume}/>
+                    <Route exact path="/users/resumes" component={LoadResume}/>
+                    <Route path="/users/resumes/view" component={ShowResume}/>
                     <Route exact path="/" component={Landing}/>
                 </Switch>
             </Layout>
